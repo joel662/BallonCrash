@@ -1,0 +1,385 @@
+:root {
+  --bg-dark: #0a0a1a;
+  --bg-panel: #111128;
+  --bg-card: #1a1a36;
+  --bg-card-hover: #242450;
+  --border: #2a2a50;
+  --text: #e0e0e0;
+  --text-muted: #777;
+  --accent: #ffa502;
+  --danger: #ff4757;
+  --success: #2ed573;
+  --gold: #ffd700;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg-dark);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  min-height: 100vh;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #141430, #1a1a3e);
+  border-bottom: 1px solid var(--border);
+}
+
+header h1 {
+  font-size: 22px;
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--accent), var(--gold), var(--success));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.wallet {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wallet-label { color: var(--text-muted); font-size: 14px; }
+
+.wallet-amount { font-size: 18px; font-weight: 700; color: var(--success); }
+
+#add-funds-btn {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 2px solid var(--success); background: transparent;
+  color: var(--success); font-size: 18px; font-weight: 700;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+#add-funds-btn:hover { background: var(--success); color: #000; }
+
+/* Crash history strip */
+.crash-strip-container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 8px 16px 0;
+}
+
+.crash-strip {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 6px 0;
+  scrollbar-width: none;
+}
+.crash-strip::-webkit-scrollbar { display: none; }
+
+.crash-chip {
+  flex-shrink: 0;
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.crash-chip.low { background: rgba(255,71,87,0.2); color: var(--danger); }
+.crash-chip.mid { background: rgba(255,165,2,0.2); color: var(--accent); }
+.crash-chip.high { background: rgba(46,213,115,0.2); color: var(--success); }
+.crash-chip.epic { background: rgba(255,215,0,0.25); color: var(--gold); }
+
+/* Main layout */
+main {
+  display: flex;
+  gap: 0;
+  padding: 12px 16px;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.game-area { flex-shrink: 0; }
+
+#crash-canvas {
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  display: block;
+  background: #0d1117;
+}
+
+/* Controls panel */
+.controls-panel {
+  flex: 1;
+  min-width: 280px;
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-left: 14px;
+}
+
+.section-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.bet-section, .auto-section, .history-section, .stats-section, .shield-section {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.bet-input-row {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.bet-input-row input {
+  flex: 1;
+  padding: 8px 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  outline: none;
+  font-variant-numeric: tabular-nums;
+}
+.bet-input-row input:focus { border-color: var(--accent); }
+
+.bet-adjust {
+  width: 38px;
+  background: var(--bg-card);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.bet-adjust:hover { background: var(--accent); color: #000; border-color: var(--accent); }
+
+.quick-bets { display: flex; gap: 4px; }
+
+.quick-bet {
+  flex: 1;
+  padding: 6px 2px;
+  background: var(--bg-card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.quick-bet:hover { background: var(--accent); color: #000; border-color: var(--accent); }
+
+.auto-section input {
+  width: 100%;
+  padding: 8px 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 14px;
+  outline: none;
+}
+.auto-section input:focus { border-color: var(--accent); }
+
+/* Shield button */
+.shield-section {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.shield-btn {
+  width: 100%;
+  padding: 10px;
+  background: var(--bg-card);
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.shield-btn:hover:not(:disabled) { background: rgba(255,215,0,0.15); }
+.shield-btn.active {
+  background: rgba(255,215,0,0.2);
+  border-color: var(--gold);
+  cursor: default;
+}
+.shield-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.shield-desc {
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* Action button */
+.action-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.action-btn.bet-state {
+  background: linear-gradient(135deg, #2ed573, #1abc9c);
+  color: #000;
+}
+.action-btn.bet-state:hover { filter: brightness(1.1); transform: scale(1.02); }
+
+.action-btn.cashout-state {
+  background: linear-gradient(135deg, var(--accent), #e67e22);
+  color: #000;
+  animation: cashout-pulse 0.8s infinite;
+}
+
+.action-btn.crashed-state {
+  background: var(--bg-card);
+  color: var(--danger);
+  cursor: default;
+}
+
+.action-btn.won-state {
+  background: var(--bg-card);
+  color: var(--gold);
+  cursor: default;
+}
+
+.action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  animation: none;
+}
+
+@keyframes cashout-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,165,2,0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(255,165,2,0); }
+}
+
+.round-info {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-muted);
+  min-height: 20px;
+  padding: 2px 0;
+}
+
+.history-list {
+  font-size: 12px;
+  color: var(--text-muted);
+  max-height: 130px;
+  overflow-y: auto;
+}
+
+.hist-entry {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-variant-numeric: tabular-nums;
+}
+.hist-entry .hist-crash { font-weight: 600; }
+.hist-entry.won .hist-result { color: var(--success); }
+.hist-entry.lost .hist-result { color: var(--danger); }
+
+.stats-display {
+  font-size: 12px;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.stat-row span:first-child { color: var(--text-muted); }
+.stat-row span:last-child { font-weight: 600; font-variant-numeric: tabular-nums; }
+
+/* Info bar */
+.info-bar {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 6px 16px 16px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.info-bar kbd {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 1px 5px;
+  font-size: 10px;
+}
+
+/* Modal */
+.modal {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center; z-index: 1000;
+}
+.modal.hidden { display: none; }
+.modal-overlay {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
+}
+.modal-content {
+  position: relative; background: var(--bg-panel);
+  border: 1px solid var(--border); border-radius: 12px;
+  padding: 24px; min-width: 320px; text-align: center;
+}
+.modal-content h3 { font-size: 18px; margin-bottom: 16px; color: var(--accent); }
+.fund-buttons { display: flex; gap: 8px; margin-bottom: 16px; }
+.fund-btn {
+  flex: 1; padding: 10px; background: var(--bg-card);
+  color: var(--success); border: 1px solid var(--success);
+  border-radius: 6px; font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: all 0.2s;
+}
+.fund-btn:hover { background: var(--success); color: #000; }
+.custom-fund { display: flex; gap: 8px; margin-bottom: 16px; }
+.custom-fund input {
+  flex: 1; padding: 8px 12px; background: var(--bg-card);
+  border: 1px solid var(--border); border-radius: 6px;
+  color: var(--text); font-size: 14px; outline: none;
+}
+.custom-fund input:focus { border-color: var(--accent); }
+#custom-fund-btn {
+  padding: 8px 16px; background: var(--accent); color: #000;
+  border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer;
+}
+.close-modal-btn {
+  padding: 8px 24px; background: transparent; color: var(--text-muted);
+  border: 1px solid var(--border); border-radius: 6px;
+  font-size: 14px; cursor: pointer; transition: all 0.2s;
+}
+.close-modal-btn:hover { color: var(--text); border-color: var(--text-muted); }
+
+@media (max-width: 1000px) {
+  main { flex-direction: column; align-items: center; }
+  .controls-panel { padding-left: 0; padding-top: 12px; max-width: 700px; width: 100%; }
+}
